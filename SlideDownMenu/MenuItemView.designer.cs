@@ -7,7 +7,7 @@
 using MonoTouch.Foundation;
 using System.CodeDom.Compiler;
 
-namespace Xamarin.UzysSlideMenu
+namespace SlideDownMenu
 {
 	[Register ("MenuItemView")]
 	partial class MenuItemView

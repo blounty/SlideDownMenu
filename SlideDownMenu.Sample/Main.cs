@@ -4,7 +4,7 @@ using System.Linq;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 
-namespace Xamarin.UzysSlideMenu.Sample
+namespace SlideDownMenu.Sample
 {
 	public class Application
 	{

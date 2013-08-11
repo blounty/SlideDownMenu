@@ -7,10 +7,10 @@
 using MonoTouch.Foundation;
 using System.CodeDom.Compiler;
 
-namespace Xamarin.UzysSlideMenu.Sample
+namespace SlideDownMenu.Sample
 {
-	[Register ("Xamarin_UzysSlideMenu_SampleViewController")]
-	partial class Xamarin_UzysSlideMenu_SampleViewController
+	[Register ("SlideDownMenuSampleViewController")]
+	partial class SlideDownMenuSampleViewController
 	{
 		[Outlet]
 		MonoTouch.UIKit.UIImageView ImageView { get; set; }

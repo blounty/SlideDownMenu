@@ -4,9 +4,9 @@ using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using System.Collections.Generic;
 
-namespace Xamarin.UzysSlideMenu.Sample
+namespace SlideDownMenu.Sample
 {
-	public partial class Xamarin_UzysSlideMenu_SampleViewController : UIViewController
+	public partial class SlideDownMenuSampleViewController : UIViewController
 	{
 
 		private SlideMenu slideMenu;
@@ -15,7 +15,7 @@ namespace Xamarin.UzysSlideMenu.Sample
 			get { return UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone; }
 		}
 
-		public Xamarin_UzysSlideMenu_SampleViewController (IntPtr handle) : base (handle)
+		public SlideDownMenuSampleViewController (IntPtr handle) : base (handle)
 		{
 		}
 

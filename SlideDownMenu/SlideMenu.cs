@@ -6,7 +6,7 @@ using MonoTouch.Foundation;
 using MonoTouch.ObjCRuntime;
 using System.Linq;
 
-namespace Xamarin.UzysSlideMenu
+namespace SlideDownMenu
 {
 	public class SlideMenu : UIView
 	{

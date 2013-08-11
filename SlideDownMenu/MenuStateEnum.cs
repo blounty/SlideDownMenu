@@ -1,6 +1,6 @@
 using System;
 
-namespace Xamarin.UzysSlideMenu
+namespace SlideDownMenu
 {
 	public enum MenuStateEnum
 	{

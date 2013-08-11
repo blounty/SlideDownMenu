@@ -1,7 +1,7 @@
 using System;
 using MonoTouch.UIKit;
 
-namespace Xamarin.UzysSlideMenu
+namespace SlideDownMenu
 {
 	public class MenuItem
 	{
