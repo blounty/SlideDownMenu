@@ -110,16 +110,16 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\SlideDownMenu\SlideDownMenu.csproj">
-      <Project>{EDE88F03-1F3A-44FE-8E5B-69F1443F8955}</Project>
-      <Name>SlideDownMenu</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Images\a0%402x.png" />
     <BundleResource Include="Images\a1%402x.png" />
     <BundleResource Include="Images\a2%402x.png" />
     <BundleResource Include="Images\bgImg%402x.png" />
     <BundleResource Include="Images\weeds.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SlideDownMenu\SlideDownMenu.csproj">
+      <Project>{EDE88F03-1F3A-44FE-8E5B-69F1443F8955}</Project>
+      <Name>SlideDownMenu</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

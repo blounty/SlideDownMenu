@@ -59,7 +59,7 @@ namespace SlideDownMenu.Sample
 			item1.Tag = 1;
 			item2.Tag = 2;
 
-			this.slideMenu = new SlideMenu (new List<MenuItem> { item0, item1, item2 });
+			this.slideMenu = new SlideMenu (new List<MenuItem> { item0, item1, item2 }, new PointF(0f,100f));
 
 			this.View.AddSubview (this.slideMenu);
 

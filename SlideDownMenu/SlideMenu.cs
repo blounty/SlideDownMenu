@@ -10,7 +10,6 @@ namespace SlideDownMenu
 {
 	public class SlideMenu : UIView
 	{
-
 		private UIView backgroundView;
 
 		public UIView BackgroundView {
@@ -45,23 +44,23 @@ namespace SlideDownMenu
 			}
 		}
 
-		public SlideMenu (List<MenuItem> items)
+		public SlideMenu (List<MenuItem> items, PointF origin)
 		{
 			this.items = items;
 			this.UserInteractionEnabled = true;
 			this.itemViews = new List<MenuItemView>();
 			this.MenuState = MenuStateEnum.IconMenu;
-			this.SetupLayout();
+			this.SetupLayout(origin);
 			this.ShowIconMenu (false);
 		}
 
-		private void SetupLayout()
+		private void SetupLayout(PointF origin)
 		{
 			var itemView = (MenuItemView)Runtime.GetNSObject(NSBundle.MainBundle.LoadNib ("MenuItemView", this, null).ValueAt(0));
-			float menuHeight = itemView.Bounds.Height * this.Items.Count;
+			var menuHeight = itemView.Bounds.Height * this.Items.Count;
 			float menuWidth = itemView.Bounds.Width;
 
-			this.Frame = new RectangleF (0, 0, menuWidth, menuHeight);
+			this.Frame = new RectangleF (origin.X, origin.Y, menuWidth, menuHeight);
 
 			int index = 0;
 
@@ -118,6 +117,8 @@ namespace SlideDownMenu
 					itemView.Alpha = 0;
 				}
 			}
+
+			Console.WriteLine ("Frame {0} Bounds {1}", this.Frame, this.Bounds);
 		}
 
 
@@ -141,6 +142,7 @@ namespace SlideDownMenu
 				this.IterateAndShowFullMenu();
 				this.MenuState = MenuStateEnum.FullMenu;
 			}
+
 		}
 
 		private void IterateAndShowFullMenu ()
@@ -232,7 +234,7 @@ namespace SlideDownMenu
 		{
 			if (this.MenuState == MenuStateEnum.FullMenu) {
 				var view = this.itemViews [0];
-				if (this.Frame.Contains (point)) {
+				if (this.Bounds.Contains (point)) {
 					return base.HitTest (point, uievent);
 				} else {
 					return null;
