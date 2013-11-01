@@ -1,13 +1,13 @@
-Xamarin.UzysSlideMenu
+SlideDownMenu
 =====================
 
 Xamarin Port Of [UzysSlideMenu](https://github.com/uzysjung/UzysSlideMenu/) - All C# NO Bindings  
 
-Slide Dropdown Menu
+Slide Down Menu
 
 ![Screenshot](https://github.com/uzysjung/UzysSlideMenu/raw/master/UzysSlideMenu.gif)
 
-**Xamarin.UzysSlideMenu features:**
+**SlideMenu features:**
 
 * It's very simple structure.
 * Very Easy to customize menu view , you can use interface builder.  
@@ -20,7 +20,7 @@ Add the project to your solution in Xamarin Studio / Visual Studio
 Add a using
 
 ``` csharp
-using Xamarin.UzysSlideMenu
+using SlideDownMenu
 ```
 
 ### Initialize
