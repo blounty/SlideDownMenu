@@ -10,6 +10,17 @@ namespace SlideDownMenu
 {
 	public class SlideMenu : UIView
 	{
+		private bool hideAll;
+
+		public bool HideAll {
+			get {
+				return hideAll;
+			}
+			set {
+				hideAll = value;
+			}
+		}
+
 		private UIView backgroundView;
 
 		public UIView BackgroundView {
@@ -44,9 +55,16 @@ namespace SlideDownMenu
 			}
 		}
 
-		public SlideMenu (List<MenuItem> items, PointF origin)
+		/// <summary>
+		/// Initializes the SlideMenu
+		/// </summary>
+		/// <param name="items">List of MenuItems that will be contained in the menu.</param>
+		/// <param name="origin">The top left corner of the menu.</param>
+		/// <param name="hideAll">If set to <c>true</c> hides all icons when list toggled.</param>
+		public SlideMenu (List<MenuItem> items, PointF origin, bool hideAll = false)
 		{
 			this.items = items;
+			this.hideAll = hideAll;
 			this.UserInteractionEnabled = true;
 			this.itemViews = new List<MenuItemView>();
 			this.MenuState = MenuStateEnum.IconMenu;
@@ -84,17 +102,18 @@ namespace SlideDownMenu
 
 		private void ShowIconMenu(bool animated)
 		{
-			if (animated) {
-				UIView.Animate(0.3, 0, UIViewAnimationOptions.BeginFromCurrentState|UIViewAnimationOptions.TransitionCrossDissolve|UIViewAnimationOptions.CurveEaseOut|UIViewAnimationOptions.AllowAnimatedContent, () => {
-					this.IterateAndShowIcons();
-				}, () => {
+			if (!hideAll) {
+				if (animated) {
+					UIView.Animate (0.3, 0, UIViewAnimationOptions.BeginFromCurrentState | UIViewAnimationOptions.TransitionCrossDissolve | UIViewAnimationOptions.CurveEaseOut | UIViewAnimationOptions.AllowAnimatedContent, () => {
+						this.IterateAndShowIcons ();
+					} , () => {
+						this.MenuState = MenuStateEnum.IconMenu;
+					}); 
+				} else {
+					this.IterateAndShowIcons ();
 					this.MenuState = MenuStateEnum.IconMenu;
-				}); 
-			} else {
-				this.IterateAndShowIcons();
-				this.MenuState = MenuStateEnum.IconMenu;
+				}
 			}
-
 		}
 
 		private void IterateAndShowIcons()
@@ -102,7 +121,7 @@ namespace SlideDownMenu
 			for (int i = 0; i < this.itemViews.Count; i++) {
 				var itemView = this.itemViews[i];
 				itemView.Frame = new RectangleF(0,0,itemView.Bounds.Width, itemView.Bounds.Height);
-				if(i == 0)
+				if(i == 0 && !hideAll)
 				{
 					itemView.Alpha = 1;
 					itemView.LabelProxy.Alpha = 0;
@@ -118,7 +137,7 @@ namespace SlideDownMenu
 				}
 			}
 
-			Console.WriteLine ("Frame {0} Bounds {1}", this.Frame, this.Bounds);
+			Console.WriteLine ("Frame " + this.Frame.ToString() + " Bounds " + this.Bounds.ToString()); // changed to this because of FormatException being raised
 		}
 
 
@@ -128,7 +147,7 @@ namespace SlideDownMenu
 				UIView.Animate(0.3, 0, UIViewAnimationOptions.BeginFromCurrentState|UIViewAnimationOptions.TransitionCrossDissolve|UIViewAnimationOptions.CurveEaseOut|UIViewAnimationOptions.AllowAnimatedContent, () => {
 					for (int i = 0; i < this.itemViews.Count; i++) {
 						var itemView = this.itemViews[i];
-						itemView.TargetFrame = new RectangleF (0, itemView.Bounds.Size.Height * i, itemView.Bounds.Size.Width, itemView.Bounds.Size.Height); 
+						itemView.TargetFrame = new RectangleF (0, itemView.Bounds.Size.Height * i, itemView.Bounds.Size.Width, itemView.Bounds.Size.Height);
 						itemView.Alpha = 0.1f;
 					}
 				}, () => {
@@ -142,7 +161,6 @@ namespace SlideDownMenu
 				this.IterateAndShowFullMenu();
 				this.MenuState = MenuStateEnum.FullMenu;
 			}
-
 		}
 
 		private void IterateAndShowFullMenu ()
@@ -179,7 +197,7 @@ namespace SlideDownMenu
 			for (int i = 0; i < this.itemViews.Count; i++) {
 				var itemView = this.itemViews[i];
 				itemView.Frame = new RectangleF(0,0,itemView.Bounds.Width, itemView.Bounds.Height);
-				if(i == 0)
+				if(i == 0 && !hideAll)
 				{
 					itemView.Alpha = 1;
 					itemView.LabelProxy.Alpha = 1;
@@ -196,15 +214,21 @@ namespace SlideDownMenu
 			}
 		}
 
+		/// <summary>
+		/// Toggles the menu open or closed.
+		/// </summary>
 		public void ToggleMenu()
 		{
 			switch (this.MenuState) {
 			case MenuStateEnum.IconMenu:
 				this.ShowFullMenu (true);
+				break;
 			case MenuStateEnum.MainMenu:
 				this.ShowFullMenu (true);
+				break;
 			case MenuStateEnum.FullMenu:
 				this.ShowMainMenu (true);
+				break;
 			default:
 				break;
 			}
@@ -225,8 +249,10 @@ namespace SlideDownMenu
 
 		private void MenuItemDidAction(MenuItemView itemView)
 		{
-			this.itemViews.Remove (itemView);
-			this.itemViews.Insert (0, itemView);
+			if (!hideAll) {
+				this.itemViews.Remove (itemView);
+				this.itemViews.Insert (0, itemView);
+			}
 			this.ToggleMenu ();
 		}
 
@@ -256,8 +282,5 @@ namespace SlideDownMenu
 			}
 			return null;
 		}
-
-
 	}
 }
-
