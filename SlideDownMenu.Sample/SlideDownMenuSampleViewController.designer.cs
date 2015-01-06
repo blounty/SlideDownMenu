@@ -4,7 +4,7 @@
 // actions made in the UI designer. If it is removed, they will be lost.
 // Manual changes to this file may not be handled correctly.
 //
-using MonoTouch.Foundation;
+using Foundation;
 using System.CodeDom.Compiler;
 
 namespace SlideDownMenu.Sample
@@ -13,13 +13,13 @@ namespace SlideDownMenu.Sample
 	partial class SlideDownMenuSampleViewController
 	{
 		[Outlet]
-		MonoTouch.UIKit.UIImageView ImageView { get; set; }
+		UIKit.UIImageView ImageView { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIButton MainButton { get; set; }
+		UIKit.UIButton MainButton { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIScrollView ScrollView { get; set; }
+		UIKit.UIScrollView ScrollView { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{

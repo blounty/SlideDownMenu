@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using MonoTouch.UIKit;
-using System.Drawing;
-using MonoTouch.Foundation;
-using MonoTouch.ObjCRuntime;
+using UIKit;
+using CoreGraphics;
+using Foundation;
+using ObjCRuntime;
 using System.Linq;
 
 namespace SlideDownMenu
@@ -44,7 +44,7 @@ namespace SlideDownMenu
 			}
 		}
 
-		public SlideMenu (List<MenuItem> items, PointF origin)
+		public SlideMenu (List<MenuItem> items, CGPoint origin)
 		{
 			this.items = items;
 			this.UserInteractionEnabled = true;
@@ -54,21 +54,21 @@ namespace SlideDownMenu
 			this.ShowIconMenu (false);
 		}
 
-		private void SetupLayout(PointF origin)
+		private void SetupLayout(CGPoint origin)
 		{
 			var itemView = (MenuItemView)Runtime.GetNSObject(NSBundle.MainBundle.LoadNib ("MenuItemView", this, null).ValueAt(0));
 			var menuHeight = itemView.Bounds.Height * this.Items.Count;
-			float menuWidth = itemView.Bounds.Width;
+			nfloat menuWidth = itemView.Bounds.Width;
 
-			this.Frame = new RectangleF (origin.X, origin.Y, menuWidth, menuHeight);
+			this.Frame = new CGRect (origin.X, origin.Y, menuWidth, menuHeight);
 
 			int index = 0;
 
 			this.Items.ForEach ((mItem) => {
 				var childItemView = (MenuItemView)Runtime.GetNSObject(NSBundle.MainBundle.LoadNib ("MenuItemView", this, null).ValueAt(0));
-				childItemView.Frame = new RectangleF (0, 0, itemView.Bounds.Width, itemView.Bounds.Height);
+				childItemView.Frame = new CGRect (0, 0, itemView.Bounds.Width, itemView.Bounds.Height);
 				childItemView.Item = mItem;
-				childItemView.TargetFrame = new RectangleF(0, childItemView.Bounds.Height * index, childItemView.Bounds.Width, childItemView.Bounds.Height);
+				childItemView.TargetFrame = new CGRect(0, childItemView.Bounds.Height * index, childItemView.Bounds.Width, childItemView.Bounds.Height);
 				childItemView.BackgroundViewProxy.Alpha = 0; 
 				childItemView.LabelProxy.Alpha = 0;
 				childItemView.Alpha = 0;
@@ -101,7 +101,7 @@ namespace SlideDownMenu
 		{
 			for (int i = 0; i < this.itemViews.Count; i++) {
 				var itemView = this.itemViews[i];
-				itemView.Frame = new RectangleF(0,0,itemView.Bounds.Width, itemView.Bounds.Height);
+				itemView.Frame = new CGRect(0,0,itemView.Bounds.Width, itemView.Bounds.Height);
 				if(i == 0)
 				{
 					itemView.Alpha = 1;
@@ -128,7 +128,7 @@ namespace SlideDownMenu
 				UIView.Animate(0.3, 0, UIViewAnimationOptions.BeginFromCurrentState|UIViewAnimationOptions.TransitionCrossDissolve|UIViewAnimationOptions.CurveEaseOut|UIViewAnimationOptions.AllowAnimatedContent, () => {
 					for (int i = 0; i < this.itemViews.Count; i++) {
 						var itemView = this.itemViews[i];
-						itemView.TargetFrame = new RectangleF (0, itemView.Bounds.Size.Height * i, itemView.Bounds.Size.Width, itemView.Bounds.Size.Height); 
+						itemView.TargetFrame = new CGRect (0, itemView.Bounds.Size.Height * i, itemView.Bounds.Size.Width, itemView.Bounds.Size.Height); 
 						itemView.Alpha = 0.1f;
 					}
 				}, () => {
@@ -178,7 +178,7 @@ namespace SlideDownMenu
 		{
 			for (int i = 0; i < this.itemViews.Count; i++) {
 				var itemView = this.itemViews[i];
-				itemView.Frame = new RectangleF(0,0,itemView.Bounds.Width, itemView.Bounds.Height);
+				itemView.Frame = new CGRect(0,0,itemView.Bounds.Width, itemView.Bounds.Height);
 				if(i == 0)
 				{
 					itemView.Alpha = 1;
@@ -199,12 +199,15 @@ namespace SlideDownMenu
 		public void ToggleMenu()
 		{
 			switch (this.MenuState) {
-			case MenuStateEnum.IconMenu:
-				this.ShowFullMenu (true);
-			case MenuStateEnum.MainMenu:
-				this.ShowFullMenu (true);
-			case MenuStateEnum.FullMenu:
-				this.ShowMainMenu (true);
+                case MenuStateEnum.IconMenu:
+                    this.ShowFullMenu(true);
+                    break;
+                case MenuStateEnum.MainMenu:
+                    this.ShowFullMenu(true);
+                    break;
+                case MenuStateEnum.FullMenu:
+                    this.ShowMainMenu(true);
+                    break;
 			default:
 				break;
 			}
@@ -217,7 +220,7 @@ namespace SlideDownMenu
 			}
 		}
 
-		public RectangleF GetMainIconFrame(UIView view)
+		public CGRect GetMainIconFrame(UIView view)
 		{
 			var itemView = this.itemViews [0];
 			return this.ConvertRectToView (itemView.Frame, view);
@@ -230,7 +233,7 @@ namespace SlideDownMenu
 			this.ToggleMenu ();
 		}
 
-		public override UIView HitTest (PointF point, UIEvent uievent)
+		public override UIView HitTest (CGPoint point, UIEvent uievent)
 		{
 			if (this.MenuState == MenuStateEnum.FullMenu) {
 				var view = this.itemViews [0];

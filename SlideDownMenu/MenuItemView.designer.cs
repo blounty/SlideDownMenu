@@ -4,7 +4,7 @@
 // actions made in the UI designer. If it is removed, they will be lost.
 // Manual changes to this file may not be handled correctly.
 //
-using MonoTouch.Foundation;
+using Foundation;
 using System.CodeDom.Compiler;
 
 namespace SlideDownMenu
@@ -13,16 +13,16 @@ namespace SlideDownMenu
 	partial class MenuItemView
 	{
 		[Outlet]
-		MonoTouch.UIKit.UIImageView BackgroundView { get; set; }
+		UIKit.UIImageView BackgroundView { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIImageView ImageView { get; set; }
+		UIKit.UIImageView ImageView { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UILabel Label { get; set; }
+		UIKit.UILabel Label { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIView SeperatorView { get; set; }
+		UIKit.UIView SeperatorView { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{

@@ -1,7 +1,7 @@
 using System;
-using System.Drawing;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
+using CoreGraphics;
+using Foundation;
+using UIKit;
 using System.Collections.Generic;
 
 namespace SlideDownMenu.Sample
@@ -34,7 +34,7 @@ namespace SlideDownMenu.Sample
 			var frame = UIScreen.MainScreen.ApplicationFrame;
 			this.View.Frame = frame;
 			this.ScrollView.Frame = this.View.Bounds;
-			this.ScrollView.ContentSize = new SizeF (this.View.Frame.Width, this.View.Bounds.Height);
+			this.ScrollView.ContentSize = new CGSize (this.View.Frame.Width, this.View.Bounds.Height);
 			this.ScrollView.Scrolled += ScrollViewDidScroll;
 
 			var item0 = new MenuItem ("Slide Menu", UIImage.FromBundle ("Images/a0.png"), (menuItem) => {
@@ -59,7 +59,7 @@ namespace SlideDownMenu.Sample
 			item1.Tag = 1;
 			item2.Tag = 2;
 
-			this.slideMenu = new SlideMenu (new List<MenuItem> { item0, item1, item2 }, new PointF(0f,100f));
+			this.slideMenu = new SlideMenu (new List<MenuItem> { item0, item1, item2 }, new CGPoint(0f,0f));
 
 			this.View.AddSubview (this.slideMenu);
 
@@ -81,7 +81,7 @@ namespace SlideDownMenu.Sample
 		private void MoveButtonToXY(float x, float y)
 		{
 			UIView.Animate(0.2, () => {
-				this.MainButton.Frame = new RectangleF(x, y, this.MainButton.Bounds.Width, this.MainButton.Bounds.Height);
+				this.MainButton.Frame = new CGRect(x, y, this.MainButton.Bounds.Width, this.MainButton.Bounds.Height);
 			});
 		}
 

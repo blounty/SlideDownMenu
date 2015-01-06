@@ -1,6 +1,6 @@
 using System;
-using MonoTouch.UIKit;
-using System.Drawing;
+using UIKit;
+using CoreGraphics;
 
 namespace SlideDownMenu
 {
@@ -17,7 +17,7 @@ namespace SlideDownMenu
 			}
 		}
 
-		public RectangleF TargetFrame {
+		public CGRect TargetFrame {
 			get;
 			set;
 		}
